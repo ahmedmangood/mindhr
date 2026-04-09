@@ -66,10 +66,10 @@ function Header() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
           ? 'glass shadow-lg shadow-mindhr-purple/5'
-          : 'bg-transparent'
+          : 'bg-gradient-to-b from-black/30 to-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,7 +81,7 @@ function Header() {
               alt="MindHR Logo"
               width={140}
               height={48}
-              className="h-10 md:h-12 w-auto"
+              className="h-10 md:h-12 w-auto brightness-0 invert"
             />
           </a>
 
@@ -91,7 +91,11 @@ function Header() {
               <a
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+                className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-muted/50 ${
+                  scrolled
+                    ? 'text-muted-foreground hover:text-foreground'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
               >
                 {item.label}
               </a>
@@ -104,7 +108,11 @@ function Header() {
               variant="outline"
               size="sm"
               onClick={toggleLanguage}
-              className="hidden sm:flex gap-1 text-xs font-bold border-mindhr-purple/30 hover:bg-mindhr-purple/10 hover:border-mindhr-purple/50"
+              className={`hidden sm:flex gap-1 text-xs font-bold transition-all ${
+                scrolled
+                  ? 'border-mindhr-purple/30 hover:bg-mindhr-purple/10 hover:border-mindhr-purple/50 text-foreground'
+                  : 'border-white/30 hover:bg-white/10 hover:border-white/50 text-white'
+              }`}
             >
               {t.langSwitch}
             </Button>
@@ -127,7 +135,7 @@ function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className="lg:hidden text-white hover:bg-white/10"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -199,39 +207,65 @@ function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* Animated Background */}
-      <div className="absolute inset-0 animated-gradient opacity-[0.03]" />
-
-      {/* Floating Shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 start-10 w-40 sm:w-72 h-40 sm:h-72 bg-mindhr-purple/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 end-10 w-48 sm:w-96 h-48 sm:h-96 bg-mindhr-blue/5 rounded-full blur-3xl animate-float-delayed" />
-        <div className="hidden sm:block absolute top-1/3 start-1/4 w-20 h-20 border-2 border-mindhr-purple/10 rounded-xl animate-rotate-slow" />
-        <div className="hidden sm:block absolute bottom-1/4 end-1/3 w-16 h-16 border-2 border-mindhr-blue/10 rounded-full animate-move-diagonal" />
-        <div className="absolute top-1/4 end-1/4 w-3 h-3 bg-mindhr-purple/20 rounded-full animate-float-slow" />
-        <div className="absolute bottom-1/3 start-1/3 w-4 h-4 bg-mindhr-blue/20 rounded-full animate-float" />
+      {/* Background Image with Ken Burns */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src="/hero-bg.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover animate-kenburns"
+          aria-hidden="true"
+        />
       </div>
 
-      {/* Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `radial-gradient(circle, #5a4a7a 1px, transparent 1px)`,
-          backgroundSize: '40px 40px',
-        }}
-      />
+      {/* Rich gradient overlay */}
+      <div className="absolute inset-0 hero-gradient-overlay" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
+      {/* Secondary subtle animated gradient */}
+      <div className="absolute inset-0 animated-gradient opacity-[0.15]" />
+
+      {/* Light streaks sweeping across */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -start-[10%] w-[40%] h-32 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-light-streak" />
+        <div className="absolute top-3/5 -start-[10%] w-[30%] h-20 bg-gradient-to-r from-transparent via-white/8 to-transparent animate-light-streak-delayed" />
+      </div>
+
+      {/* Floating luminous particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[15%] start-[10%] w-2 h-2 bg-white/30 rounded-full animate-particle-1" />
+        <div className="absolute top-[25%] start-[70%] w-3 h-3 bg-white/20 rounded-full animate-particle-2" />
+        <div className="absolute top-[60%] start-[20%] w-1.5 h-1.5 bg-white/40 rounded-full animate-particle-3" />
+        <div className="absolute top-[45%] start-[85%] w-2.5 h-2.5 bg-white/25 rounded-full animate-particle-4" />
+        <div className="absolute top-[75%] start-[50%] w-2 h-2 bg-white/30 rounded-full animate-particle-5" />
+        <div className="absolute top-[10%] start-[45%] w-1 h-1 bg-white/50 rounded-full animate-particle-3" />
+        <div className="absolute top-[80%] start-[80%] w-3 h-3 bg-white/15 rounded-full animate-particle-1" />
+        <div className="absolute top-[35%] start-[5%] w-1.5 h-1.5 bg-white/35 rounded-full animate-particle-4" />
+      </div>
+
+      {/* Soft glow orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[20%] end-[10%] w-64 sm:w-96 h-64 sm:h-96 bg-mindhr-purple/20 rounded-full blur-[100px] animate-float" />
+        <div className="absolute bottom-[20%] start-[5%] w-48 sm:w-80 h-48 sm:h-80 bg-mindhr-blue/20 rounded-full blur-[80px] animate-float-delayed" />
+      </div>
+
+      {/* Decorative geometric shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="hidden sm:block absolute top-[15%] start-[8%] w-24 h-24 border border-white/8 rounded-2xl animate-rotate-slow" />
+        <div className="hidden sm:block absolute bottom-[25%] end-[12%] w-20 h-20 border border-white/8 rounded-full animate-move-diagonal" />
+        <div className="hidden md:block absolute top-[50%] start-[50%] w-32 h-32 border border-white/5 rounded-full" />
+      </div>
+
+      {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40 z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
+          {/* Glass Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-mindhr-purple/20 mb-8"
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full hero-glass mb-8"
           >
-            <Sparkles className="h-4 w-4 text-mindhr-purple" />
-            <span className="text-sm font-medium text-mindhr-purple">
+            <Sparkles className="h-4 w-4 text-amber-300" />
+            <span className="text-sm font-medium text-white/90">
               {language === 'ar'
                 ? 'استشارات موارد بشرية منذ ٢٠١٥'
                 : 'HR Consulting Since 2015'}
@@ -240,20 +274,30 @@ function HeroSection() {
 
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+            transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 hero-text-shadow"
           >
-            <span className="gradient-text">{t.heroTitle}</span>
+            <span className="bg-gradient-to-r from-white via-white/95 to-white/80 bg-clip-text text-transparent">
+              {t.heroTitle}
+            </span>
           </motion.h1>
+
+          {/* Decorative accent line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="w-24 h-1 mx-auto mb-8 rounded-full bg-gradient-to-r from-transparent via-amber-400/60 to-transparent"
+          />
 
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed"
           >
             {t.heroSubtitle}
           </motion.p>
@@ -262,60 +306,80 @@ function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.45 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <a href="#contact">
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+            >
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-mindhr-purple to-mindhr-blue text-white shadow-xl shadow-mindhr-purple/25 hover:shadow-2xl hover:shadow-mindhr-purple/30 transition-all hover:scale-[1.02] text-base px-8 py-6"
+                className="bg-white text-mindhr-purple-dark hover:bg-white/90 shadow-2xl shadow-black/20 transition-all text-base px-8 py-6 font-bold animate-glow-pulse"
               >
                 {t.heroCta}
                 <Arrow className="ms-2 h-5 w-5" />
               </Button>
-            </a>
-            <a href="#services">
+            </motion.a>
+            <motion.a
+              href="#services"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+            >
               <Button
                 size="lg"
                 variant="outline"
-                className="border-mindhr-purple/20 hover:bg-mindhr-purple/5 hover:border-mindhr-purple/40 text-base px-8 py-6"
+                className="border-white/30 hover:bg-white/10 hover:border-white/50 text-white text-base px-8 py-6 transition-all"
               >
                 {t.services}
                 <Chevron className="ms-1 h-4 w-4" />
               </Button>
-            </a>
+            </motion.a>
           </motion.div>
 
           {/* Trust Indicators */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            className="mt-16 flex flex-wrap items-center justify-center gap-6 sm:gap-8"
           >
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5 text-green-600" />
-              <span>{language === 'ar' ? 'استشارة مجانية' : 'Free Consultation'}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5 text-green-600" />
-              <span>{language === 'ar' ? '+٢٠٠ شركة عميلة' : '+200 Client Companies'}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5 text-green-600" />
-              <span>{language === 'ar' ? 'نتائج مضمونة' : 'Guaranteed Results'}</span>
-            </div>
+            {[
+              { icon: CheckCircle2, text: language === 'ar' ? 'استشارة مجانية' : 'Free Consultation' },
+              { icon: CheckCircle2, text: language === 'ar' ? '+٢٠٠ شركة عميلة' : '+200 Client Companies' },
+              { icon: CheckCircle2, text: language === 'ar' ? 'نتائج مضمونة' : 'Guaranteed Results' },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
+                className="flex items-center gap-2"
+              >
+                <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                  <item.icon className="h-4 w-4 text-emerald-300" />
+                </div>
+                <span className="text-sm text-white/75 font-medium">{item.text}</span>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 80" fill="none" className="w-full">
+      {/* Bottom Wave with gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 z-10">
+        <svg viewBox="0 0 1440 120" fill="none" className="w-full" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+              <stop offset="30%" stopColor="rgba(255,255,255,0.3)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,1)" />
+            </linearGradient>
+          </defs>
           <path
-            d="M0 80L48 74.7C96 69.3 192 58.7 288 53.3C384 48 480 48 576 53.3C672 58.7 768 69.3 864 69.3C960 69.3 1056 58.7 1152 53.3C1248 48 1344 48 1392 48L1440 48V80H1392C1344 80 1248 80 1152 80C1056 80 960 80 864 80C768 80 672 80 576 80C480 80 384 80 288 80C192 80 96 80 48 80H0Z"
-            fill="currentColor"
-            className="text-background"
+            d="M0 60L60 52C120 44 240 28 360 24C480 20 600 28 720 36C840 44 960 52 1080 52C1200 52 1320 44 1380 40L1440 36V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+            fill="url(#wave-gradient)"
           />
         </svg>
       </div>
