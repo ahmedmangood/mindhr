@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useCallback, useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useCallback, useState, useSyncExternalStore } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/store/language';
 import { getTranslation } from '@/lib/translations';
@@ -77,13 +76,12 @@ function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-2 shrink-0">
-            <Image
+            <img
               src="/mindhrlogo.png"
               alt="MindHR Logo"
               width={140}
               height={48}
               className="h-10 md:h-12 w-auto"
-              priority
             />
           </a>
 
@@ -1038,7 +1036,7 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Image
+            <img
               src="/mindhrlogo.png"
               alt="MindHR Logo"
               width={140}
@@ -1172,13 +1170,30 @@ function FloatingWhatsApp() {
 // ============================================
 // MAIN PAGE
 // ============================================
+// Hydration-safe mounted check using useSyncExternalStore
+const emptySubscribe = () => () => {};
+function useIsMounted() {
+  return useSyncExternalStore(emptySubscribe, () => true, () => false);
+}
+
 export default function MindHRPage() {
   const { language } = useLanguage();
+  const mounted = useIsMounted();
 
   useEffect(() => {
     document.documentElement.lang = language;
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
   }, [language]);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="inline-block w-8 h-8 border-2 border-mindhr-purple/30 border-t-mindhr-purple rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
