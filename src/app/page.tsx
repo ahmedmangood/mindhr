@@ -197,9 +197,13 @@ function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center bg-background"
+      className="relative min-h-screen flex items-center bg-background overflow-hidden"
     >
-      {/* Subtle dot pattern */}
+      {/* ===== Animated background layers ===== */}
+      {/* Animated gradient */}
+      <div className="absolute inset-0 animated-gradient opacity-[0.04]" />
+
+      {/* Dot pattern */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
@@ -208,43 +212,41 @@ function HeroSection() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40 w-full">
-        <div className={`grid md:grid-cols-2 gap-12 lg:gap-16 items-center ${isRTL ? 'md:[direction:rtl]' : ''}`}>
-          {/* Image half */}
-          <div className={`order-2 md:order-1 ${isRTL ? '' : ''}`}>
-            <div className="relative">
-              {/* Decorative frame behind image */}
-              <div className={`absolute -top-4 ${isRTL ? '-left-4 rotate-3' : '-right-4 rotate-3'} w-full h-full bg-gradient-to-br from-mindhr-purple/20 to-mindhr-blue/20 rounded-2xl`} />
-              <div className={`relative ${isRTL ? '' : ''} rounded-2xl overflow-hidden shadow-2xl shadow-mindhr-purple/10 border border-border/50`}>
-                <img
-                  src="/hero-bg.jpg"
-                  alt="MindHR Team"
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-              {/* Floating stat card */}
-              <div className={`absolute -bottom-6 ${isRTL ? 'right-4 md:-right-6' : 'left-4 md:-left-6'} bg-white rounded-xl p-4 shadow-xl shadow-mindhr-purple/10 border border-border/50`}>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-mindhr-purple to-mindhr-blue flex items-center justify-center">
-                    <Award className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-xl font-bold gradient-text">
-                      {language === 'ar' ? '+٩ سنوات' : '+9 Years'}
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      {language === 'ar' ? 'من الخبرة' : 'Of Experience'}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* Light streaks */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -start-[10%] w-[40%] h-32 bg-gradient-to-r from-transparent via-white/8 to-transparent animate-light-streak" />
+        <div className="absolute top-3/5 -start-[10%] w-[30%] h-20 bg-gradient-to-r from-transparent via-white/6 to-transparent animate-light-streak-delayed" />
+      </div>
 
-          {/* Content half */}
-          <div className={`order-1 md:order-2 ${isRTL ? 'md:pl-8' : 'md:pr-8'}`}>
+      {/* Floating particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[15%] start-[10%] w-2 h-2 bg-mindhr-purple/15 rounded-full animate-particle-1" />
+        <div className="absolute top-[25%] start-[70%] w-3 h-3 bg-mindhr-blue/15 rounded-full animate-particle-2" />
+        <div className="absolute top-[60%] start-[20%] w-1.5 h-1.5 bg-mindhr-purple/20 rounded-full animate-particle-3" />
+        <div className="absolute top-[45%] start-[85%] w-2.5 h-2.5 bg-mindhr-blue/10 rounded-full animate-particle-4" />
+        <div className="absolute top-[75%] start-[50%] w-2 h-2 bg-mindhr-purple/15 rounded-full animate-particle-5" />
+      </div>
+
+      {/* Soft glow orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[20%] end-[10%] w-64 sm:w-96 h-64 sm:h-96 bg-mindhr-purple/5 rounded-full blur-[100px] animate-float" />
+        <div className="absolute bottom-[20%] start-[5%] w-48 sm:w-80 h-48 sm:h-80 bg-mindhr-blue/5 rounded-full blur-[80px] animate-float-delayed" />
+      </div>
+
+      {/* Geometric shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="hidden sm:block absolute top-[15%] start-[8%] w-24 h-24 border border-mindhr-purple/8 rounded-2xl animate-rotate-slow" />
+        <div className="hidden sm:block absolute bottom-[25%] end-[12%] w-20 h-20 border border-mindhr-blue/8 rounded-full animate-move-diagonal" />
+      </div>
+
+      {/* ===== Main content ===== */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40 w-full z-10">
+        <div className={`grid md:grid-cols-2 gap-12 lg:gap-20 items-center ${isRTL ? 'md:[direction:rtl]' : ''}`}>
+
+          {/* Content half — LEFT on desktop, TOP on mobile */}
+          <div className={`order-2 md:order-1 ${isRTL ? 'md:pl-8' : 'md:pr-8'}`}>
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-mindhr-purple/10 border border-mindhr-purple/20 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-mindhr-purple/10 border border-mindhr-purple/20 mb-10">
               <Sparkles className="h-4 w-4 text-mindhr-purple" />
               <span className="text-sm font-medium text-mindhr-purple">
                 {language === 'ar'
@@ -254,17 +256,17 @@ function HeroSection() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-tight mb-8">
               <span className="gradient-text">{t.heroTitle}</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-14 leading-relaxed">
               {t.heroSubtitle}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-5">
               <a href="#contact">
                 <Button
                   size="lg"
@@ -287,7 +289,7 @@ function HeroSection() {
             </div>
 
             {/* Trust Indicators */}
-            <div className="mt-12 flex flex-wrap items-center gap-6 sm:gap-8">
+            <div className="mt-16 flex flex-wrap items-center gap-8 sm:gap-10">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-5 w-5 text-green-600" />
                 <span className="text-sm text-muted-foreground">{language === 'ar' ? 'استشارة مجانية' : 'Free Consultation'}</span>
@@ -299,6 +301,39 @@ function HeroSection() {
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-5 w-5 text-green-600" />
                 <span className="text-sm text-muted-foreground">{language === 'ar' ? 'نتائج مضمونة' : 'Guaranteed Results'}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Image half — RIGHT on desktop, BOTTOM on mobile */}
+          <div className="order-1 md:order-2">
+            <div className="relative">
+              {/* Decorative frame behind image */}
+              <div
+                className={`absolute -top-4 w-full h-full rounded-2xl bg-gradient-to-br from-mindhr-purple/15 to-mindhr-blue/15 ${isRTL ? '-right-4 -rotate-3' : '-left-4 -rotate-3'}`}
+              />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-mindhr-purple/10 border border-border/50">
+                <img
+                  src="/hero-bg.jpg"
+                  alt="MindHR Team"
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              {/* Floating stat card */}
+              <div className={`absolute -bottom-6 ${isRTL ? 'left-4 md:-left-6' : 'right-4 md:-right-6'} bg-white rounded-xl p-4 shadow-xl shadow-mindhr-purple/10 border border-border/50`}>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-mindhr-purple to-mindhr-blue flex items-center justify-center">
+                    <Award className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-xl font-bold gradient-text">
+                      {language === 'ar' ? '+٩ سنوات' : '+9 Years'}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {language === 'ar' ? 'من الخبرة' : 'Of Experience'}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
