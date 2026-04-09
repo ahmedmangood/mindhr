@@ -204,10 +204,10 @@ function HeroSection() {
 
       {/* Floating Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 start-10 w-72 h-72 bg-mindhr-purple/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 end-10 w-96 h-96 bg-mindhr-blue/5 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/3 start-1/4 w-20 h-20 border-2 border-mindhr-purple/10 rounded-xl animate-rotate-slow" />
-        <div className="absolute bottom-1/4 end-1/3 w-16 h-16 border-2 border-mindhr-blue/10 rounded-full animate-move-diagonal" />
+        <div className="absolute top-20 start-10 w-40 sm:w-72 h-40 sm:h-72 bg-mindhr-purple/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 end-10 w-48 sm:w-96 h-48 sm:h-96 bg-mindhr-blue/5 rounded-full blur-3xl animate-float-delayed" />
+        <div className="hidden sm:block absolute top-1/3 start-1/4 w-20 h-20 border-2 border-mindhr-purple/10 rounded-xl animate-rotate-slow" />
+        <div className="hidden sm:block absolute bottom-1/4 end-1/3 w-16 h-16 border-2 border-mindhr-blue/10 rounded-full animate-move-diagonal" />
         <div className="absolute top-1/4 end-1/4 w-3 h-3 bg-mindhr-purple/20 rounded-full animate-float-slow" />
         <div className="absolute bottom-1/3 start-1/3 w-4 h-4 bg-mindhr-blue/20 rounded-full animate-float" />
       </div>
@@ -338,7 +338,7 @@ function AboutSection() {
 
   return (
     <section id="about" className="py-20 md:py-28 bg-background relative overflow-hidden">
-      <div className="absolute top-0 end-0 w-96 h-96 bg-mindhr-purple/3 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute top-0 end-0 w-48 sm:w-96 h-48 sm:h-96 bg-mindhr-purple/3 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <ScrollReveal className="text-center mb-16">
@@ -443,7 +443,7 @@ function ServicesSection() {
 
   return (
     <section id="services" className="py-20 md:py-28 bg-muted/30 relative">
-      <div className="absolute bottom-0 start-0 w-96 h-96 bg-mindhr-blue/3 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      <div className="absolute bottom-0 start-0 w-48 sm:w-96 h-48 sm:h-96 bg-mindhr-blue/3 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <ScrollReveal className="text-center mb-16">
@@ -615,7 +615,7 @@ function WhyUsSection() {
 
   return (
     <section id="why-us" className="py-20 md:py-28 bg-muted/30 relative overflow-hidden">
-      <div className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-mindhr-purple/5 to-mindhr-blue/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-to-br from-mindhr-purple/5 to-mindhr-blue/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <ScrollReveal className="text-center mb-16">
@@ -744,8 +744,8 @@ function CtaSection() {
     <section className="py-20 md:py-28 relative overflow-hidden">
       <div className="absolute inset-0 animated-gradient opacity-95" />
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 start-10 w-32 h-32 border border-white/10 rounded-full animate-float" />
-        <div className="absolute bottom-10 end-20 w-24 h-24 border border-white/10 rounded-xl animate-float-delayed" />
+        <div className="hidden sm:block absolute top-10 start-10 w-32 h-32 border border-white/10 rounded-full animate-float" />
+        <div className="hidden sm:block absolute bottom-10 end-20 w-24 h-24 border border-white/10 rounded-xl animate-float-delayed" />
         <div className="absolute top-1/2 start-1/3 w-16 h-16 bg-white/5 rounded-full animate-float-slow" />
       </div>
 
@@ -1028,8 +1028,8 @@ function Footer() {
   return (
     <footer className="bg-gradient-to-br from-mindhr-purple-dark to-mindhr-purple text-white relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 end-0 w-96 h-96 bg-mindhr-blue/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 start-0 w-72 h-72 bg-mindhr-purple-light/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 end-0 w-48 sm:w-96 h-48 sm:h-96 bg-mindhr-blue/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 start-0 w-48 sm:w-72 h-48 sm:h-72 bg-mindhr-purple-light/10 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -1196,7 +1196,7 @@ export default function MindHRPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Header />
       <main className="flex-1">
         <HeroSection />
