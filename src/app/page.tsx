@@ -81,7 +81,11 @@ function Header() {
               alt="MindHR Logo"
               width={140}
               height={48}
-              className="h-10 md:h-12 w-auto brightness-0 invert"
+              className={`h-10 md:h-12 w-auto transition-all duration-500 ${
+                scrolled
+                  ? 'drop-shadow-none'
+                  : 'brightness-0 invert'
+              }`}
             />
           </a>
 
@@ -207,20 +211,25 @@ function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* Background Image with Ken Burns */}
+      {/* Background — split layout: image on one half, solid on the other */}
       <div className="absolute inset-0 overflow-hidden">
-        <img
-          src="/hero-bg.jpg"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover animate-kenburns"
-          aria-hidden="true"
-        />
+        {/* Image half (right for LTR, left for RTL) */}
+        <div
+          className={`absolute top-0 ${isRTL ? 'left-0' : 'right-0'} w-full md:w-1/2 h-full overflow-hidden`}
+        >
+          <img
+            src="/hero-bg.jpg"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover animate-kenburns"
+            aria-hidden="true"
+          />
+        </div>
       </div>
 
-      {/* Rich gradient overlay */}
+      {/* Gradient overlay over entire hero */}
       <div className="absolute inset-0 hero-gradient-overlay" />
 
-      {/* Secondary subtle animated gradient */}
+      {/* Animated gradient on top */}
       <div className="absolute inset-0 animated-gradient opacity-[0.15]" />
 
       {/* Light streaks sweeping across */}
@@ -255,8 +264,8 @@ function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40 z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40 z-10 w-full">
+        <div className={`${isRTL ? 'md:mr-auto md:text-right' : 'md:ml-auto md:text-left'} max-w-4xl mx-auto md:mx-0 text-center md:text-start`}>
           {/* Glass Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -307,7 +316,9 @@ function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className={`flex flex-col sm:flex-row gap-4 ${
+              isRTL ? 'justify-start' : 'justify-start'
+            }`}
           >
             <motion.a
               href="#contact"
@@ -343,7 +354,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
-            className="mt-16 flex flex-wrap items-center justify-center gap-6 sm:gap-8"
+            className="mt-16 flex flex-wrap items-center gap-6 sm:gap-8"
           >
             {[
               { icon: CheckCircle2, text: language === 'ar' ? 'استشارة مجانية' : 'Free Consultation' },
